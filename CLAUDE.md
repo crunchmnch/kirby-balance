@@ -6,6 +6,11 @@ reason to share the server repo's history. The server repo's `CLAUDE.md`
 governs anything touching servers, databases or machines; this file
 governs work inside this repo.
 
+**Session orientation: read `ROADMAP.md` in this repo after this file.**
+It carries the phase plan, the per-phase completion tests, and the S243
+decision inputs (gear bands, spec priority, validation policy). When a
+slice closes, update it in the same session.
+
 ## Hard rules
 
 - **ASCII ONLY in everything written to disk.** Same rule, same reason,
