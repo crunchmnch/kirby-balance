@@ -1,0 +1,111 @@
+{
+ "spec": "combat rogue",
+ "level": 60,
+ "source": "wowhead WoW Classic pre-raid BiS guide, combat swords (fetched S243)",
+ "items": [
+  {
+   "slot": "head",
+   "id": 22005,
+   "name": "Darkmantle Cap",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "shoulder",
+   "id": 22008,
+   "name": "Darkmantle Spaulders",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "back",
+   "id": 13340,
+   "name": "Cape of the Black Baron",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "chest",
+   "id": 22009,
+   "name": "Darkmantle Tunic",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "wrist",
+   "id": 22004,
+   "name": "Darkmantle Bracers",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "hands",
+   "id": 15063,
+   "name": "Devilsaur Gauntlets",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "waist",
+   "id": 22002,
+   "name": "Darkmantle Belt",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "legs",
+   "id": 15062,
+   "name": "Devilsaur Leggings",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "feet",
+   "id": 22003,
+   "name": "Darkmantle Boots",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "neck",
+   "id": 22340,
+   "name": "Pendant of Celerity",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring1",
+   "id": 18500,
+   "name": "Tarnished Elven Ring",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring2",
+   "id": 18500,
+   "name": "Tarnished Elven Ring",
+   "confidence": "fetched",
+   "note": "guide lists it twice; unique-equipped would forbid - assert"
+  },
+  {
+   "slot": "trinket1",
+   "id": 11815,
+   "name": "Hand of Justice",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket2",
+   "id": 13965,
+   "name": "Blackhand's Breadth",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "main_hand",
+   "id": 12940,
+   "name": "Dal'Rend's Sacred Charge",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "off_hand",
+   "id": 12939,
+   "name": "Dal'Rend's Tribal Guardian",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ranged",
+   "id": 2100,
+   "name": "Precisely Calibrated Boomstick",
+   "confidence": "fetched-low",
+   "note": "id suspiciously low - assert"
+  }
+ ]
+}

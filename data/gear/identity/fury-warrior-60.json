@@ -1,0 +1,115 @@
+{
+ "spec": "fury warrior",
+ "level": 60,
+ "source": "wowhead WoW Classic pre-raid BiS guide (fetched S243); fetch confused several slots - corrected rows are marked recalled and MUST pass the dump assertion",
+ "items": [
+  {
+   "slot": "head",
+   "id": 12640,
+   "name": "Lionheart Helm",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "neck",
+   "id": 15411,
+   "name": "Mark of Fordring",
+   "confidence": "omitted-s243",
+   "note": "correct id found via web (12636 was wrong); 15411 not in the S243 dump so its stats are NOT in the profile - bounded omission, roughly -1 pp hit and a little AP; add to the next dump refresh"
+  },
+  {
+   "slot": "shoulder",
+   "id": 12927,
+   "name": "Truestrike Shoulders",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "back",
+   "id": 13340,
+   "name": "Cape of the Black Baron",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "chest",
+   "id": 11726,
+   "name": "Savage Gladiator Chain",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "wrist",
+   "id": 13400,
+   "name": "Vambraces of the Sadist",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "hands",
+   "id": 15063,
+   "name": "Devilsaur Gauntlets",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "waist",
+   "id": 13959,
+   "name": "Omokk's Girth Restrainer",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "legs",
+   "id": 15062,
+   "name": "Devilsaur Leggings",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "feet",
+   "id": 21995,
+   "name": "Boots of Heroism",
+   "confidence": "fetched-low",
+   "note": "assert slot and availability"
+  },
+  {
+   "slot": "ring1",
+   "id": 17713,
+   "name": "Blackstone Ring",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring2",
+   "id": 13098,
+   "name": "Painweaver Band",
+   "confidence": "recalled",
+   "note": "fetch had this as neck; it is a ring"
+  },
+  {
+   "slot": "trinket1",
+   "id": 11815,
+   "name": "Hand of Justice",
+   "confidence": "recalled",
+   "note": "canonical pre-raid melee trinket pair"
+  },
+  {
+   "slot": "trinket2",
+   "id": 13965,
+   "name": "Blackhand's Breadth",
+   "confidence": "recalled",
+   "note": "canonical pre-raid melee trinket pair"
+  },
+  {
+   "slot": "main_hand",
+   "id": 12940,
+   "name": "Dal'Rend's Sacred Charge",
+   "confidence": "recalled",
+   "note": "fetch listed it as a trinket; it is the MH sword"
+  },
+  {
+   "slot": "off_hand",
+   "id": 12939,
+   "name": "Dal'Rend's Tribal Guardian",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ranged",
+   "id": 18323,
+   "name": "Satyr's Bow",
+   "confidence": "fetched-low"
+  }
+ ]
+}

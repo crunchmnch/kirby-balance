@@ -1,0 +1,57 @@
+{
+ "spec": "fury warrior",
+ "level": 70,
+ "class_id": 1,
+ "race": "orc",
+ "race_id": 2,
+ "provenance": "DERIVED S243: identity wowhead TBC pre-raid BiS guide (fetched S243); stats from dev_world.item_template dump; base stats from player_levelstats; AP formula asserted StatSystem.cpp:395-401. v1 limitations: no gems/sockets/enchants/set bonuses/buffs/talent stats.",
+ "base_stats": {
+  "str": 148,
+  "agi": 93,
+  "sta": 134,
+  "int": 30,
+  "spi": 53
+ },
+ "gear_totals": {
+  "agility": 67,
+  "stamina": 188,
+  "hit_rating": 84,
+  "attack_power": 436,
+  "ranged_attack_power": 436,
+  "crit_rating": 238,
+  "strength": 130,
+  "expertise_rating": 20
+ },
+ "strength": 278,
+ "agility": 160,
+ "intellect": 30,
+ "attack_power": 1182,
+ "crit_rating": 238,
+ "melee_crit_pct": 19.32958744965754,
+ "spell_crit_pct": null,
+ "spell_power": 0,
+ "omitted_items": [],
+ "equip_unmapped": [],
+ "equip_spells_skipped_no_dbc": [],
+ "hit_pct_equip": 0,
+ "spell_hit_pct_equip": 0,
+ "hit_rating": 84,
+ "haste_rating": 0,
+ "expertise_rating": 20,
+ "weapons": {
+  "main_hand": {
+   "name": "Dragonmaw",
+   "dmg_min": 172.0,
+   "dmg_max": 320.0,
+   "delay_ms": 2700,
+   "dps": 91.1111111111111
+  },
+  "off_hand": {
+   "name": "Blinkstrike",
+   "dmg_min": 147.0,
+   "dmg_max": 275.0,
+   "delay_ms": 2600,
+   "dps": 81.15384615384615
+  }
+ }
+}

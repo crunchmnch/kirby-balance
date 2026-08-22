@@ -73,7 +73,7 @@ if the plan they imply starts to feel wrong.
 | phase | name | status |
 |---|---|---|
 | 0 | Engine skeleton, data layer, oracle | **DONE S243** |
-| 1 | Racial confidence pass (date-pressured) | not started |
+| 1 | Racial confidence pass (date-pressured) | **1a-1c DONE S243; 1d (the decision) with the group** |
 | 2 | Real white combat (full attack table) | not started |
 | 3 | Abilities, resources, rotations | not started |
 | 4 | Procs as data, experimental procs | not started |
@@ -137,6 +137,21 @@ is wide enough to change a decision as the dummy-measurement candidate.
   corrected from it (provenance tagged, per design 025 section 9).**
 - **1d. The decision (user, group).** Accept or adjust budgets; unpause
   024 or revise it. Recorded in kirby-server, not here.
+
+**1a-1c COMPLETED S243.** Worksheet: `docs/racial-pricing-worksheet.md`.
+Profiles: `data/profiles/` (six, from the S243 item_template dump, with
+equip auras resolved through Spell.dbc). Report:
+`docs/racial-pricing-report.md`. Headline findings: the Blood Fury
+yardstick is worth FAR more on pre-raid gear than 024's raid-geared
+figure, so Out of the Shadows sits below it pre-raid and overtakes it
+as gear grows (the S235 concern confirmed, made precise); Strong Voodoo
+is the sleeper (~1.5 percent sustained passive on affliction); Gorged
+is strong pre-pull and net-negative mid-combat; Heroic Presence removal
+is the largest single number in the pass. The one dummy-measurement
+candidate: the crit-proc (Deep Wounds/Ignite) damage share. Known
+profile gaps, recorded in the report and identity files: proc trinkets
+excluded (Phase 4), Mark of Fordring stats not yet dumped, L60 Well Fed
+food rows unread.
 
 ---
 

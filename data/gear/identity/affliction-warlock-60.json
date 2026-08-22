@@ -1,0 +1,113 @@
+{
+ "spec": "affliction warlock",
+ "level": 60,
+ "source": "wowhead WoW Classic pre-raid BiS guide (fetched S243)",
+ "items": [
+  {
+   "slot": "head",
+   "id": 22267,
+   "name": "Spellweaver's Turban",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "neck",
+   "id": 22403,
+   "name": "Diana's Pearl Necklace",
+   "confidence": "corrected-s243",
+   "note": "fetch said Nacreous Shell Necklace; id 22403 is Diana's Pearl Necklace in item_template (neck, int) - id kept, name corrected"
+  },
+  {
+   "slot": "shoulder",
+   "id": 23311,
+   "name": "Lieutenant Commander's Dreadweave Spaulders",
+   "confidence": "fetched-low",
+   "note": "PvP-rank item; no PvP here - assert and likely substitute"
+  },
+  {
+   "slot": "back",
+   "id": 13386,
+   "name": "Archivist Cape",
+   "confidence": "fetched-low",
+   "note": "random-suffix world item"
+  },
+  {
+   "slot": "chest",
+   "id": 14153,
+   "name": "Robe of the Void",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "wrist",
+   "id": 11766,
+   "name": "Flameweave Cuffs",
+   "confidence": "corrected-s243",
+   "note": "random-suffix base item, zero base stats in item_template; suffix bonus NOT counted - profile understates SP by roughly 10-20"
+  },
+  {
+   "slot": "hands",
+   "id": 18407,
+   "name": "Felcloth Gloves",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "waist",
+   "id": 11662,
+   "name": "Ban'thok Sash",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "legs",
+   "id": 19165,
+   "name": "Flarecore Leggings",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "feet",
+   "id": 18735,
+   "name": "Maleki's Footwraps",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring1",
+   "id": 22339,
+   "name": "Rune Band of Wizardry",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring2",
+   "id": 22433,
+   "name": "Don Mauricio's Band of Domination",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket1",
+   "id": 12930,
+   "name": "Briarwood Reed",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket2",
+   "id": 22268,
+   "name": "Draconic Infused Emblem",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "main_hand",
+   "id": 18372,
+   "name": "Blade of the New Moon",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "off_hand",
+   "id": 22329,
+   "name": "Scepter of Interminable Focus",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ranged",
+   "id": 13396,
+   "name": "Skul's Ghastly Touch",
+   "confidence": "fetched"
+  }
+ ]
+}

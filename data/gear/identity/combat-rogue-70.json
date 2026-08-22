@@ -1,0 +1,109 @@
+{
+ "spec": "combat rogue",
+ "level": 70,
+ "source": "wowhead TBC pre-raid BiS guide (fetched S243)",
+ "items": [
+  {
+   "slot": "head",
+   "id": 28224,
+   "name": "Wastewalker Helm",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "shoulder",
+   "id": 27797,
+   "name": "Wastewalker Shoulderpads",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "back",
+   "id": 24259,
+   "name": "Vengeance Wrap",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "chest",
+   "id": 28264,
+   "name": "Wastewalker Tunic",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "wrist",
+   "id": 29246,
+   "name": "Nightfall Wristguards",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "hands",
+   "id": 25685,
+   "name": "Fel Leather Gloves",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "waist",
+   "id": 29247,
+   "name": "Girdle of the Deathdealer",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "legs",
+   "id": 27837,
+   "name": "Wastewalker Leggings",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "feet",
+   "id": 25686,
+   "name": "Fel Leather Boots",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "neck",
+   "id": 29381,
+   "name": "Choker of Vile Intent",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring1",
+   "id": 31920,
+   "name": "Shaffar's Band of Brutality",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring2",
+   "id": 30834,
+   "name": "Shapeshifter's Signet",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket1",
+   "id": 29383,
+   "name": "Bloodlust Brooch",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket2",
+   "id": 28288,
+   "name": "Abacus of Violent Odds",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "main_hand",
+   "id": 28438,
+   "name": "Dragonmaw",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "off_hand",
+   "id": 28189,
+   "name": "Latro's Shifting Sword",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ranged",
+   "id": 29151,
+   "name": "Veteran's Musket",
+   "confidence": "fetched"
+  }
+ ]
+}

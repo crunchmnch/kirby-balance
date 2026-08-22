@@ -1,0 +1,110 @@
+{
+ "spec": "affliction warlock",
+ "level": 70,
+ "source": "wowhead TBC pre-raid BiS guide (fetched S243); guide leans destruction but the list is caster-generic pre-raid",
+ "items": [
+  {
+   "slot": "head",
+   "id": 32494,
+   "name": "Destruction Holo-gogs",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "shoulder",
+   "id": 21869,
+   "name": "Frozen Shadoweave Shoulders",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "back",
+   "id": 27981,
+   "name": "Sethekk Oracle Cloak",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "chest",
+   "id": 21871,
+   "name": "Frozen Shadoweave Robe",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "wrist",
+   "id": 24250,
+   "name": "Bracers of Havok",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "hands",
+   "id": 31149,
+   "name": "Gloves of Pandemonium",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "waist",
+   "id": 30038,
+   "name": "Belt of Blasting",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "legs",
+   "id": 24262,
+   "name": "Spellstrike Pants",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "feet",
+   "id": 21870,
+   "name": "Frozen Shadoweave Boots",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "neck",
+   "id": 28134,
+   "name": "Brooch of Heightened Potential",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring1",
+   "id": 29172,
+   "name": "Ashyen's Gift",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring2",
+   "id": 28227,
+   "name": "Sparking Arcanite Ring",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket1",
+   "id": 29370,
+   "name": "Icon of the Silver Crescent",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket2",
+   "id": 27683,
+   "name": "Quagmirran's Eye",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "main_hand",
+   "id": 32053,
+   "name": "Merciless Gladiator's Spellblade",
+   "confidence": "fetched-low",
+   "note": "arena-season item in a pre-raid list - assert; substitute a dungeon blade if wrong"
+  },
+  {
+   "slot": "off_hand",
+   "id": 29273,
+   "name": "Khadgar's Knapsack",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ranged",
+   "id": 29350,
+   "name": "The Black Stalk",
+   "confidence": "fetched"
+  }
+ ]
+}

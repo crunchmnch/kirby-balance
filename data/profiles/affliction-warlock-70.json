@@ -1,0 +1,55 @@
+{
+ "spec": "affliction warlock",
+ "level": 70,
+ "class_id": 9,
+ "race": "orc",
+ "race_id": 2,
+ "provenance": "DERIVED S243: identity wowhead TBC pre-raid BiS guide (fetched S243); guide leans destruction but the list is caster-generic pre-raid; stats from dev_world.item_template dump; base stats from player_levelstats; AP formula asserted StatSystem.cpp:395-401. v1 limitations: no gems/sockets/enchants/set bonuses/buffs/talent stats.",
+ "base_stats": {
+  "str": 54,
+  "agi": 55,
+  "sta": 77,
+  "int": 130,
+  "spi": 133
+ },
+ "gear_totals": {
+  "intellect": 167,
+  "stamina": 213,
+  "crit_rating": 146,
+  "spell_healing_done": 866,
+  "spell_power": 782,
+  "hit_rating": 122,
+  "unmapped_35": 18
+ },
+ "strength": 54,
+ "agility": 55,
+ "intellect": 297,
+ "attack_power": 0,
+ "crit_rating": 146,
+ "melee_crit_pct": null,
+ "spell_crit_pct": 12.025740598939223,
+ "spell_power": 782,
+ "omitted_items": [],
+ "equip_unmapped": [
+  [
+   33297,
+   42,
+   0
+  ]
+ ],
+ "equip_spells_skipped_no_dbc": [],
+ "hit_pct_equip": 0,
+ "spell_hit_pct_equip": 0,
+ "hit_rating": 122,
+ "haste_rating": 0,
+ "expertise_rating": 0,
+ "weapons": {
+  "main_hand": {
+   "name": "Merciless Gladiator's Spellblade",
+   "dmg_min": 19.0,
+   "dmg_max": 113.0,
+   "delay_ms": 1600,
+   "dps": 41.25
+  }
+ }
+}

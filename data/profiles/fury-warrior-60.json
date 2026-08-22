@@ -1,0 +1,69 @@
+{
+ "spec": "fury warrior",
+ "level": 60,
+ "class_id": 1,
+ "race": "orc",
+ "race_id": 2,
+ "provenance": "DERIVED S243: identity wowhead WoW Classic pre-raid BiS guide (fetched S243); fetch confused several slots - corrected rows are marked recalled and MUST pass the dump assertion; stats from dev_world.item_template dump; base stats from player_levelstats; AP formula asserted StatSystem.cpp:395-401. v1 limitations: no gems/sockets/enchants/set bonuses/buffs/talent stats.",
+ "base_stats": {
+  "str": 123,
+  "agi": 77,
+  "sta": 111,
+  "int": 27,
+  "spi": 49
+ },
+ "gear_totals": {
+  "strength": 63,
+  "crit_rating": 168,
+  "hit_rating": 70,
+  "attack_power": 200,
+  "ranged_attack_power": 200,
+  "agility": 32,
+  "stamina": 83
+ },
+ "strength": 186,
+ "agility": 109,
+ "intellect": 27,
+ "attack_power": 732,
+ "crit_rating": 168,
+ "melee_crit_pct": 20.671799825970083,
+ "spell_crit_pct": null,
+ "spell_power": 0,
+ "omitted_items": [
+  "Mark of Fordring (neck)"
+ ],
+ "equip_unmapped": [
+  [
+   15600,
+   42,
+   0
+  ],
+  [
+   13385,
+   189,
+   2
+  ]
+ ],
+ "equip_spells_skipped_no_dbc": [],
+ "hit_pct_equip": 0,
+ "spell_hit_pct_equip": 0,
+ "hit_rating": 70,
+ "haste_rating": 0,
+ "expertise_rating": 0,
+ "weapons": {
+  "main_hand": {
+   "name": "Dal'Rend's Sacred Charge",
+   "dmg_min": 81.0,
+   "dmg_max": 151.0,
+   "delay_ms": 2800,
+   "dps": 41.42857142857143
+  },
+  "off_hand": {
+   "name": "Dal'Rend's Tribal Guardian",
+   "dmg_min": 52.0,
+   "dmg_max": 97.0,
+   "delay_ms": 1800,
+   "dps": 41.388888888888886
+  }
+ }
+}

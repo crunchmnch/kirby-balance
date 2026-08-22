@@ -1,0 +1,111 @@
+{
+ "spec": "fury warrior",
+ "level": 70,
+ "source": "wowhead TBC pre-raid BiS guide (fetched S243)",
+ "items": [
+  {
+   "slot": "head",
+   "id": 32087,
+   "name": "Mask of the Deceiver",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "neck",
+   "id": 29349,
+   "name": "Adamantine Chain of the Unbroken",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "shoulder",
+   "id": 33173,
+   "name": "Ragesteel Shoulders",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "back",
+   "id": 24259,
+   "name": "Vengeance Wrap",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "chest",
+   "id": 23522,
+   "name": "Ragesteel Breastplate",
+   "confidence": "fetched-low",
+   "note": "id looks off for a TBC crafted piece - assert against dump"
+  },
+  {
+   "slot": "wrist",
+   "id": 23537,
+   "name": "Black Felsteel Bracers",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "hands",
+   "id": 25685,
+   "name": "Fel Leather Gloves",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "waist",
+   "id": 27985,
+   "name": "Deathforge Girdle",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "legs",
+   "id": 30538,
+   "name": "Midnight Legguards",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "feet",
+   "id": 25686,
+   "name": "Fel Leather Boots",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring1",
+   "id": 29379,
+   "name": "Ring of Arathi Warlords",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring2",
+   "id": 30834,
+   "name": "Shapeshifter's Signet",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket1",
+   "id": 21670,
+   "name": "Badge of the Swarmguard",
+   "confidence": "fetched-low",
+   "note": "AQ40 trinket in a pre-raid list - assert and reconsider"
+  },
+  {
+   "slot": "trinket2",
+   "id": 29383,
+   "name": "Bloodlust Brooch",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "main_hand",
+   "id": 28438,
+   "name": "Dragonmaw",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "off_hand",
+   "id": 31332,
+   "name": "Blinkstrike",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ranged",
+   "id": 30279,
+   "name": "Mama's Insurance",
+   "confidence": "fetched"
+  }
+ ]
+}
