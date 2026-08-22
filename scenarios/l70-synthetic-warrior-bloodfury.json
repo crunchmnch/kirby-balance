@@ -1,0 +1,37 @@
+{
+ "schema": 1,
+ "name": "l70-synthetic-warrior-bloodfury",
+ "comment": [
+  "First readout scenario: the Blood Fury yardstick on a level 70 melee,",
+  "white swings only. The actor numbers are SYNTHETIC - plausible, not",
+  "derived. Replace them via the item_template gear query once the gear",
+  "definition per level band exists (design 025 precondition P1).",
+  "Blood Fury's AP is resolved symbolically at the actor's level, so no",
+  "transcribed 282 lives in this file."
+ ],
+ "export": "data/export/gametables.json",
+ "seed": 20260822,
+ "duration_ms": 360000000,
+ "actor": {
+  "class_id": 1,
+  "level": 70,
+  "provenance": "ASSUMED S243: synthetic pre-raid-flavored arms warrior; not derived from item_template; replace after P1",
+  "attack_power": 1900,
+  "agility": 180,
+  "crit_rating": 250,
+  "weapon_min": 274,
+  "weapon_max": 412,
+  "weapon_speed_ms": 3300
+ },
+ "auras": [
+  {
+   "name": "Blood Fury",
+   "duration_ms": 15000,
+   "period_ms": 120000,
+   "effects": [
+    {"kind": "attack_power", "amount": "yardstick:blood_fury_ap"}
+   ]
+  }
+ ],
+ "compare_without": ["Blood Fury"]
+}
