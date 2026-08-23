@@ -8,8 +8,8 @@ the group does not steer by them (user, S243).
 
 Basis: gear from the six derived pre-raid profiles (our own
 item_template; no gems/enchants/set bonuses/proc trinkets), crit
-INCLUDING per-spec talent packages (recalled, labelled, pending a
-Talent.dbc read - see the appendix), no raid buffs. Race/class
+INCLUDING per-spec talent packages (MEASURED S244 from Talent.dbc
++ Spell.dbc rank chains - see the appendix), no raid buffs. Race/class
 pairs validated against CharBaseInfo.dbc - a racial is only
 priced on a class that race can be.
 
@@ -147,7 +147,7 @@ the one before it are the two numbers to weigh together.
 
 ## Appendix - where each crit number comes from
 
-| profile | class base | agility -> crit | + gear equip crit | = derived | + talent pkg (recalled) | = pricing crit |
+| profile | class base | agility -> crit | + gear equip crit | = derived | + talent pkg (measured S244) | = pricing crit |
 |---|---|---|---|---|---|---|
 | combat rogue L60 | -0.29 | agi 338 + rating 84 -> +18.00 pp | +0.0 | 17.70% | +5.0 | **22.7%** |
 | combat rogue L70 | -0.29 | agi 363 + rating 106 -> +13.88 pp | +0.0 | 13.58% | +5.0 | **18.6%** |
@@ -160,9 +160,11 @@ Derived crit = gtChanceToMeleeCritBase + agility x gtChanceToMeleeCrit
 + crit rating / gtCombatRatings + item equip-spell crit, all from
 our own DBC/item_template data (pinned by tests). NOT included:
 buffs (Leader of the Pack, Mongoose...), weapon-skill vs defense
-depression, proc trinkets. Talent packages are the one recalled
-input - a Talent.dbc read replaces them when rotations arrive
-(Phase 3).
+depression, proc trinkets. Talent packages were the one recalled
+input; MEASURED S244 from Talent.dbc + Spell.dbc rank chains, all
+values confirmed (ids in tools/price_racials.py). Mortal Shots
+19490 carries a second +60 aura-108 effect with an unread class
+mask - flagged, not summed; resolve it when rotations arrive.
 
 ## Reading guidance
 

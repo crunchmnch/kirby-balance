@@ -73,7 +73,7 @@ if the plan they imply starts to feel wrong.
 | phase | name | status |
 |---|---|---|
 | 0 | Engine skeleton, data layer, oracle | **DONE S243** |
-| 1 | Racial confidence pass (date-pressured) | **1a-1c DONE S243 (report v3); 1d scheduled next session** |
+| 1 | Racial confidence pass (date-pressured) | **DONE - 1a-1c S243 (report v3), 1d S244 (decisions in design 024)** |
 | 2 | Real white combat (full attack table) | not started |
 | 3 | Abilities, resources, rotations | not started |
 | 4 | Procs as data, experimental procs | not started |
@@ -137,6 +137,15 @@ is wide enough to change a decision as the dummy-measurement candidate.
   corrected from it (provenance tagged, per design 025 section 9).**
 - **1d. The decision (user, group).** Accept or adjust budgets; unpause
   024 or revise it. Recorded in kirby-server, not here.
+  **COMPLETED S244:** every budget locked against report v3 plus S244
+  variant runs. Out of the Shadows redesigned to a decaying HASTE burst
+  (the crit shape and every auto-crit variant priced unboundable);
+  Gorged went to 60s at half power with a base-health rider; Light
+  Within v2 (restoration + a Gift of the Naaru rider at 0.33x Blood
+  Fury); Bloodthistle Outland tier 10 SP + 8 haste rating; Jack of All
+  Trades +1 all stats per 10 levels; Tauren Endurance raised to 10
+  percent base health. Design 024 carries every number and its
+  provenance - the pass is UNPAUSED.
 
 **1a-1c COMPLETED S243.** Worksheet: `docs/racial-pricing-worksheet.md`.
 Profiles: `data/profiles/` (six, from the S243 item_template dump, with
@@ -144,8 +153,11 @@ equip auras resolved through Spell.dbc). Report:
 `docs/racial-pricing-report.md`. Headline findings: the Blood Fury
 yardstick is worth FAR more on pre-raid gear than 024's raid-geared
 figure, so Out of the Shadows sits below it pre-raid and overtakes it
-as gear grows (the S235 concern confirmed, made precise); Strong Voodoo
-is the sleeper (~1.5 percent sustained passive on affliction); Gorged
+as gear grows (the S235 concern confirmed, made precise); Strong
+Voodoo's v1 "sleeper" headline was WITHDRAWN in v2 - troll warlocks are
+impossible, the realistic ceiling is a shadow priest near +1 percent
+(corrected in place S244; this paragraph previously still carried the
+withdrawn claim); Gorged
 is strong pre-pull and net-negative mid-combat; Heroic Presence removal
 is the largest single number in the pass. The one dummy-measurement
 candidate: the crit-proc (Deep Wounds/Ignite) damage share. Known
@@ -159,12 +171,12 @@ on a troll warlock - impossible; headline withdrawn, realistic ceiling
 is a troll shadow priest ~+1 percent). Crit basis now carries per-spec
 talent packages (RECALLED, replace via Talent.dbc in Phase 3). Removals
 are not tabulated - the report compares new racials to the original
-Blood Fury ceiling only. NEXT SLICE (named, small): **the wowsims
-reference harvest** - pull stock DoT-share, crit-proc-share and
-composition midpoints for the priority specs from wowsims preset/report
-data as GUIDANCE (design 025 section 4.5's legitimate use; ADR 012's
-cross-check role), replacing the placeholder sweep midpoints with
-provenance-tagged references before any dummy session is spent.
+Blood Fury ceiling only. The wowsims reference harvest (stock
+DoT-share, crit-proc-share and composition midpoints as GUIDANCE -
+design 025 section 4.5's legitimate use; ADR 012's cross-check role)
+was named NEXT SLICE here in S243; **demoted to backlog S244** - the 1d
+budgets are locked, so it now only tightens the Strong Voodoo band and
+serves future passes.
 
 ---
 
@@ -263,20 +275,25 @@ runs a comparison and reads the answer without editing JSON by hand.**
 - Extract the Blood Fury spell fields (and future spell scaling) from
   `Spell.dbc` into the stamped export, retiring `kb/yardstick.py`'s
   transcription (its docstring carries the provenance until then).
-- `close-session.ps1` (kirby-server) does not know this repo exists - it
-  is not swept by the state dump and not pushed by closeout. Add it, in
-  a kirby-server session.
-- GitHub remote for this repo (backup + collaborator visibility).
-- wowsims tolerance-band comparison (design 025 section 4.5) - deferred;
-  drop it entirely if the group's gap tolerance turns out to be settled
-  by taste.
+- DONE S244: close-session.ps1 and session-state.ps1 (kirby-server) now
+  sweep and push this repo (-BalanceMessage).
+- GitHub remote for this repo (backup + collaborator visibility) -
+  commands handed over S244; done once the first push lands.
+- wowsims reference harvest (DoT-share / crit-proc-share midpoints for
+  the priority specs) - demoted S244 from next-slice to backlog: the
+  1d budgets are locked, so the harvest now only tightens the Strong
+  Voodoo band and future passes. Also the tolerance-band comparison
+  (design 025 section 4.5) - deferred; drop it entirely if the group's
+  gap tolerance turns out to be settled by taste.
 - Opportunistic combat-log parser (see validation policy).
-- Re-run tools/refresh_export.py on HOME: the committed export (with
-  char_base_info) was generated from staged copies in the S243 session
-  sandbox; regeneration on HOME must reproduce payload f242ab35... -
-  a free cross-machine assertion.
-- Talent.dbc read to replace the RECALLED talent packages in
-  tools/price_racials.py.
+- DONE S244: refresh_export.py re-run on HOME reproduced payload
+  f242ab35... exactly - the export is cross-machine asserted.
+- DONE S244: Talent.dbc read - every recalled talent value confirmed
+  (ids in tools/price_racials.py); the one open detail is Mortal Shots
+  19490's second +60 effect with an unread class mask (Phase 3).
+- Re-price the S244 racial shapes (haste OotS, Gorged v2, GotN rider)
+  as pricing.py functions when the pass is built, so the report and the
+  shipped designs stop diverging.
 - v3 report additions recorded: marksmanship hunter as fourth anchor
   (ranged model; Auto Shot has no Path-B white), Berserking measured
   (+20 percent flat, 10s/180s), x-Blood-Fury ratio on every row

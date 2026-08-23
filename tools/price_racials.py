@@ -19,6 +19,14 @@ anchor spec (ranged model - Auto Shot has no Path-B white); Berserking
 measured from Spell.dbc and tabled beside Strong Voodoo as the racial
 trolls already own; the x-Blood-Fury ratio appears on EVERY priced row.
 
+v3.1 (S244): the talent packages are MEASURED, no longer recalled -
+every value confirmed from dev Spell.dbc + Talent.dbc rank chains (see
+SPEC_TALENTS below for the spell ids). All values matched the recalled
+ones, so no number in the report moved. NOTE: the S244 Phase 1d DESIGN
+decisions (haste OotS, Gorged v2, Light Within v2, Endurance) are NOT
+re-priced here - design 024 carries those numbers with provenance; this
+report remains the S243 basis the decisions were made from.
+
 Usage (from the repo root):  py -3 tools\\price_racials.py
 """
 
@@ -39,9 +47,16 @@ WHITE_SHARE = (0.20, 0.35, 0.50)
 PROC_SHARE = (0.00, 0.08, 0.15)
 SP_FRACTION = (0.40, 0.50, 0.60)
 
-# Talent packages - RECALLED S243, pending a Talent.dbc read. crit_pp is
+# Talent packages - MEASURED S244 from dev Spell.dbc + Talent.dbc rank
+# chains (was RECALLED S243; every measured value matched). crit_pp is
 # added to the profile's derived crit; crit_dmg feeds the ability path
 # (SPELLMOD_CRIT_DAMAGE_BONUS, compounds after aura 163 per the guide).
+# Measured rows: Cruelty r5 12856 aura 52 +5; Berserker Stance passive
+# 7381 aura 52 +3 (applied by the shapeshift handler,
+# SpellAuraEffects.cpp:1384); Impale r2 16494 aura 108 misc 15 +20;
+# Malice r5 14142 +5; Lethality r5 14137 aura 108/15 +30; Lethal Shots
+# r5 19431 +5; Mortal Shots r5 19490 aura 108/15 +30 (its second +60
+# effect carries an unread EffectSpellClassMask - flagged, not summed).
 SPEC_TALENTS = {
     "fury warrior": {"crit_pp": 8.0,   # Cruelty 5 + Berserker Stance 3
                      "crit_dmg_pct": 20.0},  # Impale
@@ -104,8 +119,8 @@ def price_all(profiles, rc):
     add("")
     add("Basis: gear from the six derived pre-raid profiles (our own")
     add("item_template; no gems/enchants/set bonuses/proc trinkets), crit")
-    add("INCLUDING per-spec talent packages (recalled, labelled, pending a")
-    add("Talent.dbc read - see the appendix), no raid buffs. Race/class")
+    add("INCLUDING per-spec talent packages (MEASURED S244 from Talent.dbc")
+    add("+ Spell.dbc rank chains - see the appendix), no raid buffs. Race/class")
     add("pairs validated against CharBaseInfo.dbc - a racial is only")
     add("priced on a class that race can be.")
     add("")
@@ -326,7 +341,7 @@ def price_all(profiles, rc):
     # ---- crit transparency ----
     add("## Appendix - where each crit number comes from")
     add("")
-    add("| profile | class base | agility -> crit | + gear equip crit | = derived | + talent pkg (recalled) | = pricing crit |")
+    add("| profile | class base | agility -> crit | + gear equip crit | = derived | + talent pkg (measured S244) | = pricing crit |")
     add("|---|---|---|---|---|---|---|")
     for (spec, level), prof in sorted(profiles.items()):
         if prof["class_id"] not in (1, 3, 4):
@@ -344,9 +359,11 @@ def price_all(profiles, rc):
     add("+ crit rating / gtCombatRatings + item equip-spell crit, all from")
     add("our own DBC/item_template data (pinned by tests). NOT included:")
     add("buffs (Leader of the Pack, Mongoose...), weapon-skill vs defense")
-    add("depression, proc trinkets. Talent packages are the one recalled")
-    add("input - a Talent.dbc read replaces them when rotations arrive")
-    add("(Phase 3).")
+    add("depression, proc trinkets. Talent packages were the one recalled")
+    add("input; MEASURED S244 from Talent.dbc + Spell.dbc rank chains, all")
+    add("values confirmed (ids in tools/price_racials.py). Mortal Shots")
+    add("19490 carries a second +60 aura-108 effect with an unread class")
+    add("mask - flagged, not summed; resolve it when rotations arrive.")
     add("")
 
     add("## Reading guidance")
