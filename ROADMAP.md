@@ -73,7 +73,7 @@ if the plan they imply starts to feel wrong.
 | phase | name | status |
 |---|---|---|
 | 0 | Engine skeleton, data layer, oracle | **DONE S243** |
-| 1 | Racial confidence pass (date-pressured) | **1a-1c DONE S243; 1d (the decision) with the group** |
+| 1 | Racial confidence pass (date-pressured) | **1a-1c DONE S243 (report v3); 1d scheduled next session** |
 | 2 | Real white combat (full attack table) | not started |
 | 3 | Abilities, resources, rotations | not started |
 | 4 | Procs as data, experimental procs | not started |
@@ -271,3 +271,13 @@ runs a comparison and reads the answer without editing JSON by hand.**
   drop it entirely if the group's gap tolerance turns out to be settled
   by taste.
 - Opportunistic combat-log parser (see validation policy).
+- Re-run tools/refresh_export.py on HOME: the committed export (with
+  char_base_info) was generated from staged copies in the S243 session
+  sandbox; regeneration on HOME must reproduce payload f242ab35... -
+  a free cross-machine assertion.
+- Talent.dbc read to replace the RECALLED talent packages in
+  tools/price_racials.py.
+- v3 report additions recorded: marksmanship hunter as fourth anchor
+  (ranged model; Auto Shot has no Path-B white), Berserking measured
+  (+20 percent flat, 10s/180s), x-Blood-Fury ratio on every row
+  including a caster-proxy BF (spell power variant).
