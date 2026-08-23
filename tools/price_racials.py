@@ -1,14 +1,20 @@
-"""Phase 1c: price all ten 024 racials at 60 and 70, in per-level Blood
-Fury units, with sweep bands. Writes docs/racial-pricing-report.md.
+"""Phase 1c (v2, S243): price the NEW racials against the ORIGINAL Blood
+Fury - the strongest stock DPS racial and the pass's soft power ceiling
+(user, S243). Writes docs/racial-pricing-report.md.
 
-Usage (from the repo root):
+v2 changes, all from user review of v1:
+- race/class validity enforced from CharBaseInfo.dbc via the export -
+  v1 priced Strong Voodoo on a troll warlock, which does not exist.
+- crit basis now includes per-spec TALENT packages (v1 was untalented,
+  which read as implausibly low base crit). Packages are RECALLED and
+  labelled so, pending a Talent.dbc read.
+- removals (Heroic Presence, weapon specs) deliberately NOT tabulated -
+  the group cares about new racials vs the old ceiling, not the nerfs
+  everyone shares.
+- a crit transparency appendix shows exactly how each profile's crit
+  number is built, term by term.
 
-    py -3 tools\\price_racials.py
-
-Reads: data/profiles/*.json (built by tools/build_profiles.py),
-data/export/gametables.json. Every assumption is printed into the
-report; sweeps carry (lo, mid, hi); wide sweeps are flagged as the
-target-dummy candidates per design 025 section 4.4.
+Usage (from the repo root):  py -3 tools\\price_racials.py
 """
 
 import json
@@ -18,17 +24,40 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from kb import export as export_mod
-from kb import pricing, yardstick
+from kb import pricing, raceclass, yardstick
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+EXPORT = os.path.join(ROOT, "data", "export", "gametables.json")
 
 # sweep register (docs/racial-pricing-worksheet.md)
 WHITE_SHARE = (0.20, 0.35, 0.50)
 PROC_SHARE = (0.00, 0.08, 0.15)
-DOT_SHARE_AFFLICTION = (0.60, 0.75, 0.90)
 SP_FRACTION = (0.40, 0.50, 0.60)
-TALENTS = {"fury warrior": 20.0, "combat rogue": 30.0,
-           "affliction warlock": 0.0}
+
+# Talent packages - RECALLED S243, pending a Talent.dbc read. crit_pp is
+# added to the profile's derived crit; crit_dmg feeds the ability path
+# (SPELLMOD_CRIT_DAMAGE_BONUS, compounds after aura 163 per the guide).
+SPEC_TALENTS = {
+    "fury warrior": {"crit_pp": 8.0,   # Cruelty 5 + Berserker Stance 3
+                     "crit_dmg_pct": 20.0},  # Impale
+    "combat rogue": {"crit_pp": 5.0,   # Malice
+                     "crit_dmg_pct": 30.0},  # Lethality (builders)
+    "affliction warlock": {"crit_pp": 0.0, "crit_dmg_pct": 0.0},
+}
+
+# Strong Voodoo: DoT damage share sweeps per VALID troll class.
+# Midpoints are placeholders pending the wowsims reference harvest.
+TROLL_DOT_SHARES = [
+    ("shadow priest", 5, (0.35, 0.45, 0.60)),
+    ("rogue (poisons + Rupture)", 4, (0.08, 0.14, 0.20)),
+    ("hunter (Serpent Sting)", 3, (0.02, 0.05, 0.08)),
+    ("warrior (Deep Wounds + Rend)", 1, (0.03, 0.06, 0.10)),
+    ("shaman (Flame Shock)", 7, (0.03, 0.05, 0.08)),
+    ("fire mage (Ignite ticks)", 8, (0.00, 0.05, 0.10)),
+]
+
+RACE = {"human": 1, "orc": 2, "dwarf": 3, "nightelf": 4, "undead": 5,
+        "tauren": 6, "gnome": 7, "troll": 8, "bloodelf": 10, "draenei": 11}
 
 
 def load_profiles():
@@ -48,242 +77,231 @@ def fmt_band(vals, unit="%"):
     return "%.2f (%.2f - %.2f)%s" % (mid, lo, hi, unit)
 
 
-def bf_ratio(sustained_pct, bf_sustained_pct):
-    if bf_sustained_pct <= 0:
-        return 0.0
-    return sustained_pct / bf_sustained_pct
+def pricing_crit(prof):
+    """Profile-derived crit plus the spec's talent package."""
+    pkg = SPEC_TALENTS.get(prof["spec"], {})
+    return prof["melee_crit_pct"] + pkg.get("crit_pp", 0.0)
 
 
-def price_all(profiles):
+def price_all(profiles, rc):
     lines = []
     add = lines.append
 
-    add("# Racial Pricing Report - Phase 1c (S243)")
+    add("# Racial Pricing Report - Phase 1c v2 (S243)")
     add("")
-    add("**Every number here is derived from our own data or swept - no")
-    add("measurement was taken.** Profiles are UNBUFFED and UNTALENTED for")
-    add("stats (no gems/enchants/set bonuses/raid buffs), so absolute")
-    add("percentages run a little hot versus a raid-buffed character; the")
-    add("Blood Fury RATIOS are computed on the same basis top and bottom")
-    add("and are the numbers to trust. Method: design 025; mechanics:")
-    add("guide-combat-math.md; routes: docs/racial-pricing-worksheet.md.")
+    add("**The question this report answers: how does each NEW racial")
+    add("compare to the ORIGINAL Blood Fury - historically the strongest")
+    add("DPS racial and this pass's soft power ceiling (user, S243).**")
+    add("Removals are deliberately not tabulated: they nerf broadly and")
+    add("the group does not steer by them (user, S243).")
     add("")
-    doc = export_mod.load(os.path.join(ROOT, "data", "export",
-                                       "gametables.json"))
+    add("Basis: gear from the six derived pre-raid profiles (our own")
+    add("item_template; no gems/enchants/set bonuses/proc trinkets), crit")
+    add("INCLUDING per-spec talent packages (recalled, labelled, pending a")
+    add("Talent.dbc read - see the appendix), no raid buffs. Race/class")
+    add("pairs validated against CharBaseInfo.dbc - a racial is only")
+    add("priced on a class that race can be.")
+    add("")
+    doc = export_mod.load(EXPORT)
     add("Export: generated %s, payload %s." % (
-        doc["stamp"]["generated_at"],
-        doc["stamp"]["payload_sha256"][:16]))
+        doc["stamp"]["generated_at"], doc["stamp"]["payload_sha256"][:16]))
     add("")
 
-    # ---- the yardstick per anchor profile ----
-    add("## The yardstick: Blood Fury on the anchor profiles")
+    # ---- the ceiling ----
+    add("## The soft ceiling: original Blood Fury on the anchor profiles")
     add("")
-    add("| profile | level | full-uptime gain | sustained (12.5% uptime) | percent-seconds/cycle |")
+    add("| profile | level | gain while active | sustained | percent-seconds/cycle |")
     add("|---|---|---|---|---|")
     bf = {}
     for (spec, level), prof in sorted(profiles.items()):
-        if not prof.get("weapons") or "main_hand" not in prof["weapons"]:
-            continue
         if prof["class_id"] not in (1, 4):
             continue
         sustained, ps = pricing.blood_fury_price(prof)
         bf[(spec, level)] = sustained
-        full = ps / 15.0
         add("| %s | %d | +%.2f%% | +%.3f%% | %.0f |"
-            % (spec, level, full, sustained, ps))
+            % (spec, level, ps / 15.0, sustained, ps))
     add("")
-    add("Blood Fury moves with level and gear exactly as design 025")
-    add("section 7 predicted - the unit is per-profile, and every ratio")
-    add("below names the profile it is measured against.")
+    add("A flat AP grant is relatively larger on a smaller damage pool,")
+    add("so the ceiling itself is HIGHER at 60 and on pre-raid gear than")
+    add("the raid-geared ~117 ps design 024 used. Ratios below always")
+    add("name the profile they are measured against.")
     add("")
 
     # ---- Night Elf ----
-    add("## Night Elf - Out of the Shadows (the headline)")
+    add("## Night Elf - Out of the Shadows")
     add("")
-    add("+15pp crit / +15 crit damage decaying over 10s per 120s")
-    add("(Shadowmeld cooldown restarted on exit). White-share and")
-    add("crit-proc-share are SWEPT; talent compounding applied per spec")
-    add("(Impale 20, Lethality 30). Ratios vs the same profile's Blood")
-    add("Fury sustained value.")
+    add("Valid night elf DPS: warrior, hunter, rogue, priest, druid.")
+    add("Melee rows use the anchor profiles + talent packages; the")
+    add("crit-proc share (Deep Wounds family) is the swept axis.")
     add("")
-    add("| profile | level | base crit | percent-seconds (proc sweep) | sustained | x Blood Fury |")
+    add("| basis | level | crit (talented) | percent-seconds (proc sweep) | sustained | x Blood Fury (same profile) |")
     add("|---|---|---|---|---|---|")
-    ne_flag = []
     for (spec, level), prof in sorted(profiles.items()):
         if prof["class_id"] not in (1, 4):
             continue
-        crit = prof["melee_crit_pct"]
-        talent = TALENTS.get(spec, 0.0)
+        crit = pricing_crit(prof)
+        talent_dmg = SPEC_TALENTS[spec]["crit_dmg_pct"]
         band = []
         for proc in PROC_SHARE:
             w = WHITE_SHARE[1]
-            ability = 1.0 - w - proc
             mean10, ps, sustained = pricing.out_of_the_shadows_price(
-                crit, w, ability, proc, talent)
+                crit, w, 1.0 - w - proc, proc, talent_dmg)
             band.append((ps, sustained))
-        ps_band = tuple(b[0] for b in band)
+        ps_b = tuple(b[0] for b in band)
         s_mid = band[1][1]
-        ratio = bf_ratio(s_mid, bf[(spec, level)])
-        add("| %s | %d | %.1f%% | %s | +%.3f%% | **%.2fx** |"
-            % (spec, level, crit,
-               "%.0f (%.0f - %.0f)" % (ps_band[1], ps_band[0], ps_band[2]),
-               s_mid, ratio))
-        spread = ps_band[2] - ps_band[0]
-        if spread > 25:
-            ne_flag.append((spec, level, spread))
-    # caster variant on the warlock profile
+        add("| %s | %d | %.1f%% | %.0f (%.0f - %.0f) | +%.3f%% | **%.2fx** |"
+            % (spec, level, crit, ps_b[1], ps_b[0], ps_b[2], s_mid,
+               s_mid / bf[(spec, level)]))
     for level in (60, 70):
         prof = profiles.get(("affliction warlock", level))
-        if not prof or not prof.get("spell_crit_pct"):
+        if not prof:
             continue
         crit = prof["spell_crit_pct"]
         mean10, ps, sustained = pricing.out_of_the_shadows_price(
             crit, 0.0, 0.0, 0.0, 0.0, spell_share=1.0)
-        add("| caster (lock profile) | %d | %.1f%% | %.0f | +%.3f%% | structural ~0.5x melee |"
+        add("| caster shape (gear-band proxy; NE casters are priest/druid) | %d | %.1f%% | %.0f | +%.3f%% | structurally ~half the melee value |"
             % (level, crit, ps, sustained))
-    add("")
-    add("White-vs-ability composition moves the answer by under 2 points")
-    add("across its whole range (verified: design 025 section 4.4 holds")
-    add("on the real profiles). **The crit-proc share is the wide axis**")
-    if ne_flag:
-        add("- the sweep spans are wide enough that a Deep Wounds/Ignite")
-        add("share estimate per spec is the ONE measurement worth having")
-        add("(the design 025 escape hatch), for: %s."
-            % ", ".join("%s L%d (+/-%.0f ps)" % f for f in ne_flag))
     add("")
 
     # ---- Orc ----
-    add("## Orc - Warband Fury (gain) and Axe Spec (loss)")
+    add("## Orc - Warband Fury (rides Blood Fury's own press)")
     add("")
-    add("| item | level | per-recipient | notes |")
+    add("| recipient | level | sustained | percent-seconds |")
     add("|---|---|---|---|")
     for level in (60, 70):
-        share_ap = 0.25 * yardstick.blood_fury_attack_power(level)
+        ap = 0.25 * yardstick.blood_fury_attack_power(level)
         for spec in ("fury warrior", "combat rogue"):
             prof = profiles.get((spec, level))
             if not prof:
                 continue
-            gain = pricing.flat_ap_gain_pct(prof, share_ap)
-            s, ps = pricing.windowed(gain, 15.0)
-            add("| Warband Fury AP share | %d | +%.3f%% sustained on %s (%.0f ps) | %.0f AP for 15s/120s |"
-                % (level, s, spec, ps, share_ap))
-        sp_share = 0.25 * yardstick.blood_fury_spell_power(level)
+            s, ps = pricing.windowed(pricing.flat_ap_gain_pct(prof, ap), 15.0)
+            add("| %s | %d | +%.3f%% | %.0f |" % (spec, level, s, ps))
+        sp = 0.25 * yardstick.blood_fury_spell_power(level)
         prof = profiles.get(("affliction warlock", level))
         if prof and prof.get("spell_power"):
-            band = pricing.sp_gain_band_pct(prof, sp_share, SP_FRACTION)
-            s_band = tuple(pricing.windowed(g, 15.0)[0] for g in band)
-            add("| Warband Fury SP share | %d | +%s sustained on caster | %.0f SP; SP-fraction swept |"
-                % (level, fmt_band(s_band), sp_share))
-    add("| Axe Spec removal | any | -%.2f%% on axe users | conditional on weapon (the cage being removed) |"
-        % pricing.expertise_removal_pct(5))
+            band = tuple(pricing.windowed(g, 15.0)[0] for g in
+                         pricing.sp_gain_band_pct(prof, sp, SP_FRACTION))
+            add("| caster (gear-band proxy) | %d | +%s | - |"
+                % (level, fmt_band(band)))
+    add("")
+    add("Per recipient it is a quarter-strength Blood Fury; the racial's")
+    add("value is the SUM over everyone in range when the orc presses it.")
     add("")
 
     # ---- Undead ----
     add("## Undead - Gorged")
     add("")
-    add("| model | level | profile | sustained | percent-seconds |")
-    add("|---|---|---|---|---|")
+    add("| usage | level | sustained | percent-seconds |")
+    add("|---|---|---|---|")
     for level in (60, 70):
-        for spec in ("fury warrior",):
-            prof = profiles.get((spec, level))
-            if not prof:
-                continue
-            s_pre, ps_pre = pricing.gorged_price(prof, prepull=True)
-            s_in, _ = pricing.gorged_price(prof, prepull=False)
-            add("| pre-pull channel | %d | %s | +%.3f%% | %.0f |"
-                % (level, spec, s_pre, ps_pre))
-            add("| in-combat channel | %d | %s | %+.3f%% (channel cost included) | - |"
-                % (level, spec, s_in))
+        prof = profiles.get(("fury warrior", level))
+        if not prof:
+            continue
+        s_pre, ps_pre = pricing.gorged_price(prof, prepull=True)
+        s_in, _ = pricing.gorged_price(prof, prepull=False)
+        add("| pre-pull channel (corpse available) | %d | +%.3f%% | %.0f |"
+            % (level, s_pre, ps_pre))
+        add("| mid-combat channel | %d | %+.3f%% net | - |" % (level, s_in))
     add("")
-    add("The in-combat model is net NEGATIVE for DPS - the 10s channel")
-    add("costs more than the buff returns. Gorged is a between-pulls /")
-    add("pre-pull racial, and honest pricing says so.")
+    add("Strong exactly when a fight allows a short break AND a corpse is")
+    add("nearby - a situational spike, and that shape is the point")
+    add("(user, S243). Mid-combat channelling prices net negative.")
+    add("")
+
+    # ---- Troll ----
+    add("## Troll - Strong Voodoo (+2% own DoTs and HoTs)")
+    add("")
+    add("Troll CANNOT be a warlock (CharBaseInfo.dbc) - v1 priced this on")
+    add("an affliction lock and that row was wrong. Valid troll classes")
+    add("with a DoT share, swept; share midpoints await the wowsims")
+    add("reference harvest:")
+    add("")
+    add("| troll class | DoT share (swept) | sustained gain |")
+    add("|---|---|---|")
+    for label, class_id, shares in TROLL_DOT_SHARES:
+        rc.validate(RACE["troll"], class_id)
+        band = pricing.strong_voodoo_price(shares)
+        add("| %s | %s | +%s |"
+            % (label, fmt_band(shares, ""), fmt_band(band)))
+    add("")
+    add("The ceiling case is a shadow priest near +1%; every other troll")
+    add("sits well under half a percent. The v1 headline ('the sleeper')")
+    add("is WITHDRAWN - it rested on an impossible combo.")
     add("")
 
     # ---- the rest ----
-    add("## The remaining racials, priced")
+    add("## The remaining new racials")
     add("")
-    add("| race | component | level | value | route |")
+    add("| race | racial | level | value | valid classes note |")
     add("|---|---|---|---|---|")
     for level in (60, 70):
         prof = profiles.get(("fury warrior", level))
         if prof:
             g = pricing.flat_ap_gain_pct(prof, 20 if level == 70 else 10)
-            add("| Dwarf | Hearty Appetite, AP food +50%% | %d | +%.3f%% sustained while fed | closed form (L60 food values half-assumed - read L60 Well Fed rows before quoting) |"
+            add("| Dwarf | Hearty Appetite, AP food +50%% | %d | +%.3f%% while fed | any dwarf melee; L60 food value half-assumed |"
                 % (level, g))
     lockp = profiles.get(("affliction warlock", 70))
     if lockp and lockp.get("spell_power"):
         band = pricing.sp_gain_band_pct(lockp, 11.5, SP_FRACTION)
-        add("| Dwarf | Hearty Appetite, SP food +50%% | 70 | +%s while fed | closed form x SP fraction |"
+        add("| Dwarf | Hearty Appetite, SP food +50%% | 70 | +%s while fed | dwarf's only cloth caster is PRIEST |"
             % fmt_band(band))
-        band = pricing.sp_gain_band_pct(lockp, 20, SP_FRACTION)
-        add("| Blood Elf | Bloodthistle (Outland tier, +20 SP) | 70 | +%s while active | consumable, not passive |"
-            % fmt_band(band))
-        band = pricing.sp_gain_band_pct(lockp, 10, SP_FRACTION)
-        add("| Blood Elf | Bloodthistle (Classic tier, +10 SP) | 70 | +%s while active | consumable |"
-            % fmt_band(band))
-    voodoo = pricing.strong_voodoo_price(DOT_SHARE_AFFLICTION)
-    add("| Troll | Strong Voodoo, affliction lock | any | +%s sustained | +2%% x DoT share (swept) - LARGER than it reads |"
-        % fmt_band(voodoo))
-    add("| Troll | Strong Voodoo, melee specs | any | ~0% | no DoT share to speak of |")
-    add("| Troll | Regeneration | any | not DPS - survivability/downtime | not priced here |")
-    haste = pricing.haste_price(1.0)
-    add("| Gnome | Expansive Mind +1%% haste | any | +%s | closed form |" % fmt_band(haste))
-    add("| Gnome | Engineering bombs +20% | any | situational burst; ~0 sustained outside bomb usage | swept 0-2 bombs/min elsewhere |")
-    add("| Gnome | Escape Artist -10% debuff duration | any | utility, not DPS | not priced |")
-    after = pricing.aftershock_price()
-    add("| Tauren | Aftershock (group) | any | +%s of GROUP damage | 10%% x 5%% uptime x stomp-window share (swept) |"
-        % fmt_band(after))
-    add("| Draenei | Light Within | any | +%.2f%% ceiling (once per 5min, below 35%% health) | bounded ceiling |"
+        for grant, name in ((20, "Outland tier +20 SP"),
+                            (10, "Classic tier +10 SP")):
+            band = pricing.sp_gain_band_pct(lockp, grant, SP_FRACTION)
+            add("| Blood Elf | Bloodthistle, %s | 70 | +%s while active | BE casters: paladin, priest, mage, warlock (warlock VALID for BE) |"
+                % (name, fmt_band(band)))
+    add("| Gnome | Expansive Mind +1%% haste | any | +%s | gnome: warrior, rogue, mage, warlock, DK |"
+        % fmt_band(pricing.haste_price(1.0)))
+    add("| Gnome | Engineering bombs +20%% | any | burst only; ~0 sustained without bombs | usage-dependent |")
+    add("| Tauren | Aftershock | any | +%s of group damage in stomp range | tauren: warrior, hunter, shaman, druid, DK |"
+        % fmt_band(pricing.aftershock_price()))
+    add("| Draenei | Light Within | any | +%.2f%% ceiling (8s per 5min below 35%% health) | any draenei |"
         % pricing.light_within_price())
-    add("| Draenei | Heroic Presence REMOVAL | any | about -%.2f%% per party member under the miss cap | the largest removal in the pass |"
-        % pricing.hit_removal_pct(1.0))
-    add("| Human | Jack of All Trades trickle | any | small; Master of Anatomy rank value pending a Spell.dbc read | bounded |")
-    add("| Human | Sword/Mace Spec removal | any | -%.2f%% on sword/mace melee | conditional (the cage) |"
-        % pricing.expertise_removal_pct(3))
-    add("| Dwarf | Mace Spec removal | any | -%.2f%% on mace melee | conditional |"
-        % pricing.expertise_removal_pct(5))
-    add("| Dwarf/Troll | Gun/Bow Spec removal | any | about -0.7% ranged (1pp crit) | hunters only |")
-    add("| Blood Elf | Arcane Torrent buffs | any | resource value - DEFERRED to the mana phase; rogue burst bounded elsewhere | deferred |")
+    add("| Human | Jack of All Trades combat trickle | any | small (Master of Anatomy crit rating; value pending Spell.dbc read) | economy racial first |")
+    add("| Blood Elf | Arcane Torrent | any | resource value - deferred to the mana phase | rogue full-energy noted as the big one |")
+    add("| Troll | Regeneration | any | survivability, not DPS | - |")
     add("")
 
-    add("## Reading guidance - what the numbers actually say")
+    # ---- crit transparency ----
+    add("## Appendix - where each crit number comes from")
     add("")
-    add("**1. The yardstick moved more than the racial.** 024 priced")
-    add("everything against a RAID-GEARED Blood Fury (~117 ps at 70).")
-    add("On the real PRE-RAID profiles Blood Fury is worth far more")
-    add("(~175 ps at 70, ~277 at 60), because a flat AP grant is")
-    add("relatively bigger on a smaller damage pool. Out of the Shadows")
-    add("is nearly gear- and level-invariant by construction. So at")
-    add("pre-raid gear it sits BELOW Blood Fury (about 0.5x at 60,")
-    add("0.8-0.9x at 70) - and its ratio RISES as gear grows. Against")
-    add("024's own raid-geared Blood Fury figure (117 ps) the same")
-    add("percent-seconds read ~1.2x for fury and ~1.35x for a Lethality")
-    add("rogue: the S235 concern is CONFIRMED for raid gear, and the")
-    add("design question is now precise - do you want a racial that")
-    add("strengthens relative to the yardstick as gear improves?")
+    add("| profile | class base | agility -> crit | + gear equip crit | = derived | + talent pkg (recalled) | = pricing crit |")
+    add("|---|---|---|---|---|---|---|")
+    for (spec, level), prof in sorted(profiles.items()):
+        if prof["class_id"] not in (1, 4):
+            continue
+        derived = prof["melee_crit_pct"]
+        pkg = SPEC_TALENTS[spec]["crit_pp"]
+        base = {1: 3.1891, 4: -0.2950}[prof["class_id"]]
+        equip = prof["gear_totals"].get("melee_crit_pct_equip", 0)
+        agi_and_rating = derived - base - equip
+        add("| %s L%d | %.2f | agi %d + rating %d -> +%.2f pp | +%.1f | %.2f%% | +%.1f | **%.1f%%** |"
+            % (spec, level, base, prof["agility"], prof["crit_rating"],
+               agi_and_rating, equip, derived, pkg, derived + pkg))
     add("")
-    add("**2. The sleeper is Strong Voodoo.** +2 percent on DoTs is a")
-    add("passive worth ~1.5 percent sustained on an affliction lock -")
-    add("about equal to Blood Fury's entire sustained value on a")
-    add("pre-raid melee, always on, no button. Nothing else in the pass")
-    add("gives a single spec that much passively.")
+    add("Derived crit = gtChanceToMeleeCritBase + agility x gtChanceToMeleeCrit")
+    add("+ crit rating / gtCombatRatings + item equip-spell crit, all from")
+    add("our own DBC/item_template data (pinned by tests). NOT included:")
+    add("buffs (Leader of the Pack, Mongoose...), weapon-skill vs defense")
+    add("depression, proc trinkets. Talent packages are the one recalled")
+    add("input - a Talent.dbc read replaces them when rotations arrive")
+    add("(Phase 3).")
     add("")
-    add("**3. Gorged is two racials.** Pre-pull it is strong (183 ps at")
-    add("60 - more than Out of the Shadows); mid-combat it is a trap")
-    add("(net negative once the 10s channel is costed). Worth saying in")
-    add("its tooltip-adjacent lore or accepting knowingly.")
+
+    add("## Reading guidance")
     add("")
-    add("**4. The removals are not symmetric.** Heroic Presence is the")
-    add("single largest number in either direction (about -1.1 percent")
-    add("per party member); the weapon specs are conditional losses the")
-    add("cage-removal rationale already accepts.")
-    add("")
-    add("**5. What would change these numbers:** the crit-proc share")
-    add("(Deep Wounds/Ignite) is the one swept input wide enough to")
-    add("move a decision - the design 025 escape hatch (one target-dummy")
-    add("session) applies to it and to nothing else here. This report")
-    add("prices; whether a gap is acceptable stays the group's call.")
+    add("Against the original Blood Fury on the SAME profile: Out of the")
+    add("Shadows is the only new racial that approaches the ceiling for a")
+    add("single character, and its ratio rises with gear because Blood")
+    add("Fury's flat AP dilutes as damage grows - against 024's")
+    add("raid-geared Blood Fury figure it crosses 1x. Everything else")
+    add("prices well under half a Blood Fury for any single recipient;")
+    add("Warband Fury's group sum and Gorged's corpse-and-a-break spike")
+    add("are the two that can exceed that in the right moment, which is")
+    add("the stated intent (moments over stats). Two inputs are worth")
+    add("firming before the group locks numbers: the crit-proc share and")
+    add("the DoT shares behind Strong Voodoo - both are wowsims")
+    add("reference-harvest candidates before any dummy session is spent.")
     return lines
 
 
@@ -292,7 +310,8 @@ def main():
     if not profiles:
         print("no profiles found - run tools/build_profiles.py first")
         return 1
-    lines = price_all(profiles)
+    rc = raceclass.RaceClass.from_export(EXPORT)
+    lines = price_all(profiles, rc)
     out = os.path.join(ROOT, "docs", "racial-pricing-report.md")
     text = "\n".join(lines) + "\n"
     text.encode("ascii")

@@ -99,10 +99,12 @@ Removals: Gun Spec +1 pp ranged crit (hunters), Mace Spec +5 expertise
   note: interacts with the death-has-weight pillar, not with this
   yardstick. Downtime reduction is a mana-phase-adjacent readout later.
 - Strong Voodoo (+2 percent own DoTs and HoTs): closed form x DoT damage
-  share. Affliction warlock (S243 priority roster) sits at DoT share
-  ~70-90 percent -> +1.4 to +1.8 percent sustained, which is LARGER than
-  it reads and deserves a real number in 1c. Shadow-flavored specs high;
-  melee near zero. Sweep share per spec.
+  share, swept per VALID troll class only. **CORRECTED S243: troll
+  cannot be a warlock (CharBaseInfo.dbc) - the first draft priced this
+  on an affliction lock, which does not exist.** The realistic ceiling
+  is a troll shadow priest (~+1 percent); rogue poisons/Rupture next;
+  everything else small. Every pricing row must pass the race/class
+  validity check (kb/raceclass.py, data from our own client).
 - Removals: Bow/Throwing Spec +1 pp ranged crit (hunters only).
 - Berserking (kept, unchanged) is noted as context in the per-race
   totals: troll hunters/casters already carry a real offensive racial.
@@ -168,7 +170,16 @@ SkillLineAbility/Spell.dbc at 1c time - do not trust memory). Perception
 (track two resources) and removals (Sword/Mace Spec +3 expertise,
 melee-only): expertise loss priced same shape as Orc's.
 
-## The removals, as their own table
+## The removals - deliberately NOT tabulated (user, S243)
+
+The group steers by the new racials against the ORIGINAL Blood Fury -
+the soft power ceiling - not by the removals, which nerf broadly
+(Heroic Presence) or hit conditional cases the cage-removal rationale
+already accepts (weapon specs, on classes far ahead anyway). Pricing
+functions for removals stay in kb/pricing.py for the record; the report
+does not print them.
+
+## The removals, as their own table (RETIRED S243 - see above)
 
 Balance confidence means seeing both directions. 1c's report carries a
 removals table: Human -3 expertise (swords/maces), Dwarf -5 expertise

@@ -153,6 +153,19 @@ profile gaps, recorded in the report and identity files: proc trinkets
 excluded (Phase 4), Mark of Fordring stats not yet dumped, L60 Well Fed
 food rows unread.
 
+**v2 corrections (user review, S243):** race/class validity is now
+enforced from CharBaseInfo.dbc via the export (v1 priced Strong Voodoo
+on a troll warlock - impossible; headline withdrawn, realistic ceiling
+is a troll shadow priest ~+1 percent). Crit basis now carries per-spec
+talent packages (RECALLED, replace via Talent.dbc in Phase 3). Removals
+are not tabulated - the report compares new racials to the original
+Blood Fury ceiling only. NEXT SLICE (named, small): **the wowsims
+reference harvest** - pull stock DoT-share, crit-proc-share and
+composition midpoints for the priority specs from wowsims preset/report
+data as GUIDANCE (design 025 section 4.5's legitimate use; ADR 012's
+cross-check role), replacing the placeholder sweep midpoints with
+provenance-tagged references before any dummy session is spent.
+
 ---
 
 ## Phase 2 - Real white combat

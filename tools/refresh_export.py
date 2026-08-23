@@ -40,6 +40,7 @@ SOURCES = {
     "gtCombatRatings.dbc": ("combat_ratings", NUM_RATING_ROWS * GT_MAX_LEVEL),
 }
 PAIR_SOURCE = "gtOCTClassCombatRatingScalar.dbc"
+CHAR_BASE_INFO = "CharBaseInfo.dbc"
 
 
 def sha256_file(path):
@@ -73,6 +74,23 @@ def main(argv=None):
             "bytes": os.path.getsize(path),
             "sha256": sha256_file(path),
         }
+
+    # race/class validity - 2 bytes per record (race id, class id).
+    # Added S243 after a racial was priced on a troll warlock, a combo
+    # this table would have refused.
+    path = os.path.join(args.dbc_dir, CHAR_BASE_INFO)
+    with open(path, "rb") as f:
+        raw = f.read()
+    import struct as _struct
+    magic, nrec, nfield, recsize, strsize = _struct.unpack_from(
+        "<4sIIII", raw, 0)
+    if magic != b"WDBC" or recsize != 2:
+        raise SystemExit("%s: unexpected shape" % path)
+    body = raw[20:20 + nrec * recsize]
+    payload["char_base_info"] = sorted(
+        [body[i * 2], body[i * 2 + 1]] for i in range(nrec))
+    source_files[CHAR_BASE_INFO] = {
+        "bytes": os.path.getsize(path), "sha256": sha256_file(path)}
 
     path = os.path.join(args.dbc_dir, PAIR_SOURCE)
     payload["oct_class_combat_rating_scalar"] = [

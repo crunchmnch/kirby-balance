@@ -1,135 +1,141 @@
-# Racial Pricing Report - Phase 1c (S243)
+# Racial Pricing Report - Phase 1c v2 (S243)
 
-**Every number here is derived from our own data or swept - no
-measurement was taken.** Profiles are UNBUFFED and UNTALENTED for
-stats (no gems/enchants/set bonuses/raid buffs), so absolute
-percentages run a little hot versus a raid-buffed character; the
-Blood Fury RATIOS are computed on the same basis top and bottom
-and are the numbers to trust. Method: design 025; mechanics:
-guide-combat-math.md; routes: docs/racial-pricing-worksheet.md.
+**The question this report answers: how does each NEW racial
+compare to the ORIGINAL Blood Fury - historically the strongest
+DPS racial and this pass's soft power ceiling (user, S243).**
+Removals are deliberately not tabulated: they nerf broadly and
+the group does not steer by them (user, S243).
 
-Export: generated 2026-08-22T17:48:04Z, payload 7bcd81b960c440cf.
+Basis: gear from the six derived pre-raid profiles (our own
+item_template; no gems/enchants/set bonuses/proc trinkets), crit
+INCLUDING per-spec talent packages (recalled, labelled, pending a
+Talent.dbc read - see the appendix), no raid buffs. Race/class
+pairs validated against CharBaseInfo.dbc - a racial is only
+priced on a class that race can be.
 
-## The yardstick: Blood Fury on the anchor profiles
+Export: generated 2026-08-23T00:16:00Z, payload f242ab353c4647de.
 
-| profile | level | full-uptime gain | sustained (12.5% uptime) | percent-seconds/cycle |
+## The soft ceiling: original Blood Fury on the anchor profiles
+
+| profile | level | gain while active | sustained | percent-seconds/cycle |
 |---|---|---|---|---|
 | combat rogue | 60 | +19.38% | +2.422% | 291 |
 | combat rogue | 70 | +11.59% | +1.449% | 174 |
 | fury warrior | 60 | +18.45% | +2.306% | 277 |
 | fury warrior | 70 | +11.70% | +1.462% | 175 |
 
-Blood Fury moves with level and gear exactly as design 025
-section 7 predicted - the unit is per-profile, and every ratio
-below names the profile it is measured against.
+A flat AP grant is relatively larger on a smaller damage pool,
+so the ceiling itself is HIGHER at 60 and on pre-raid gear than
+the raid-geared ~117 ps design 024 used. Ratios below always
+name the profile they are measured against.
 
-## Night Elf - Out of the Shadows (the headline)
+## Night Elf - Out of the Shadows
 
-+15pp crit / +15 crit damage decaying over 10s per 120s
-(Shadowmeld cooldown restarted on exit). White-share and
-crit-proc-share are SWEPT; talent compounding applied per spec
-(Impale 20, Lethality 30). Ratios vs the same profile's Blood
-Fury sustained value.
+Valid night elf DPS: warrior, hunter, rogue, priest, druid.
+Melee rows use the anchor profiles + talent packages; the
+crit-proc share (Deep Wounds family) is the swept axis.
 
-| profile | level | base crit | percent-seconds (proc sweep) | sustained | x Blood Fury |
+| basis | level | crit (talented) | percent-seconds (proc sweep) | sustained | x Blood Fury (same profile) |
 |---|---|---|---|---|---|
-| combat rogue | 60 | 17.7% | 148 (122 - 171) | +1.230% | **0.51x** |
-| combat rogue | 70 | 13.6% | 159 (122 - 193) | +1.329% | **0.92x** |
-| fury warrior | 60 | 20.7% | 138 (117 - 157) | +1.149% | **0.50x** |
-| fury warrior | 70 | 19.3% | 140 (117 - 161) | +1.167% | **0.80x** |
-| caster (lock profile) | 60 | 7.3% | 51 | +0.428% | structural ~0.5x melee |
-| caster (lock profile) | 70 | 12.0% | 52 | +0.435% | structural ~0.5x melee |
+| combat rogue | 60 | 22.7% | 139 (121 - 155) | +1.160% | **0.48x** |
+| combat rogue | 70 | 18.6% | 146 (122 - 167) | +1.215% | **0.84x** |
+| fury warrior | 60 | 28.7% | 129 (117 - 141) | +1.077% | **0.47x** |
+| fury warrior | 70 | 27.3% | 130 (117 - 143) | +1.086% | **0.74x** |
+| caster shape (gear-band proxy; NE casters are priest/druid) | 60 | 7.3% | 51 | +0.428% | structurally ~half the melee value |
+| caster shape (gear-band proxy; NE casters are priest/druid) | 70 | 12.0% | 52 | +0.435% | structurally ~half the melee value |
 
-White-vs-ability composition moves the answer by under 2 points
-across its whole range (verified: design 025 section 4.4 holds
-on the real profiles). **The crit-proc share is the wide axis**
-- the sweep spans are wide enough that a Deep Wounds/Ignite
-share estimate per spec is the ONE measurement worth having
-(the design 025 escape hatch), for: combat rogue L60 (+/-49 ps), combat rogue L70 (+/-71 ps), fury warrior L60 (+/-40 ps), fury warrior L70 (+/-45 ps).
+## Orc - Warband Fury (rides Blood Fury's own press)
 
-## Orc - Warband Fury (gain) and Axe Spec (loss)
-
-| item | level | per-recipient | notes |
+| recipient | level | sustained | percent-seconds |
 |---|---|---|---|
-| Warband Fury AP share | 60 | +0.576% sustained on fury warrior (69 ps) | 60 AP for 15s/120s |
-| Warband Fury AP share | 60 | +0.606% sustained on combat rogue (73 ps) | 60 AP for 15s/120s |
-| Warband Fury SP share | 60 | +0.64 (0.51 - 0.77)% sustained on caster | 31 SP; SP-fraction swept |
-| Warband Fury AP share | 70 | +0.365% sustained on fury warrior (44 ps) | 70 AP for 15s/120s |
-| Warband Fury AP share | 70 | +0.362% sustained on combat rogue (43 ps) | 70 AP for 15s/120s |
-| Warband Fury SP share | 70 | +0.29 (0.23 - 0.34)% sustained on caster | 36 SP; SP-fraction swept |
-| Axe Spec removal | any | -1.34% on axe users | conditional on weapon (the cage being removed) |
+| fury warrior | 60 | +0.576% | 69 |
+| combat rogue | 60 | +0.606% | 73 |
+| caster (gear-band proxy) | 60 | +0.64 (0.51 - 0.77)% | - |
+| fury warrior | 70 | +0.365% | 44 |
+| combat rogue | 70 | +0.362% | 43 |
+| caster (gear-band proxy) | 70 | +0.29 (0.23 - 0.34)% | - |
+
+Per recipient it is a quarter-strength Blood Fury; the racial's
+value is the SUM over everyone in range when the orc presses it.
 
 ## Undead - Gorged
 
-| model | level | profile | sustained | percent-seconds |
+| usage | level | sustained | percent-seconds |
+|---|---|---|---|
+| pre-pull channel (corpse available) | 60 | +1.525% | 183 |
+| mid-combat channel | 60 | -6.046% net | - |
+| pre-pull channel (corpse available) | 70 | +0.968% | 116 |
+| mid-combat channel | 70 | -6.882% net | - |
+
+Strong exactly when a fight allows a short break AND a corpse is
+nearby - a situational spike, and that shape is the point
+(user, S243). Mid-combat channelling prices net negative.
+
+## Troll - Strong Voodoo (+2% own DoTs and HoTs)
+
+Troll CANNOT be a warlock (CharBaseInfo.dbc) - v1 priced this on
+an affliction lock and that row was wrong. Valid troll classes
+with a DoT share, swept; share midpoints await the wowsims
+reference harvest:
+
+| troll class | DoT share (swept) | sustained gain |
+|---|---|---|
+| shadow priest | 0.45 (0.35 - 0.60) | +0.90 (0.70 - 1.20)% |
+| rogue (poisons + Rupture) | 0.14 (0.08 - 0.20) | +0.28 (0.16 - 0.40)% |
+| hunter (Serpent Sting) | 0.05 (0.02 - 0.08) | +0.10 (0.04 - 0.16)% |
+| warrior (Deep Wounds + Rend) | 0.06 (0.03 - 0.10) | +0.12 (0.06 - 0.20)% |
+| shaman (Flame Shock) | 0.05 (0.03 - 0.08) | +0.10 (0.06 - 0.16)% |
+| fire mage (Ignite ticks) | 0.05 (0.00 - 0.10) | +0.10 (0.00 - 0.20)% |
+
+The ceiling case is a shadow priest near +1%; every other troll
+sits well under half a percent. The v1 headline ('the sleeper')
+is WITHDRAWN - it rested on an impossible combo.
+
+## The remaining new racials
+
+| race | racial | level | value | valid classes note |
 |---|---|---|---|---|
-| pre-pull channel | 60 | fury warrior | +1.525% | 183 |
-| in-combat channel | 60 | fury warrior | -6.046% (channel cost included) | - |
-| pre-pull channel | 70 | fury warrior | +0.968% | 116 |
-| in-combat channel | 70 | fury warrior | -6.882% (channel cost included) | - |
+| Dwarf | Hearty Appetite, AP food +50% | 60 | +0.762% while fed | any dwarf melee; L60 food value half-assumed |
+| Dwarf | Hearty Appetite, AP food +50% | 70 | +0.830% while fed | any dwarf melee; L60 food value half-assumed |
+| Dwarf | Hearty Appetite, SP food +50% | 70 | +0.74 (0.59 - 0.88)% while fed | dwarf's only cloth caster is PRIEST |
+| Blood Elf | Bloodthistle, Outland tier +20 SP | 70 | +1.28 (1.02 - 1.53)% while active | BE casters: paladin, priest, mage, warlock (warlock VALID for BE) |
+| Blood Elf | Bloodthistle, Classic tier +10 SP | 70 | +0.64 (0.51 - 0.77)% while active | BE casters: paladin, priest, mage, warlock (warlock VALID for BE) |
+| Gnome | Expansive Mind +1% haste | any | +0.90 (0.80 - 1.00)% | gnome: warrior, rogue, mage, warlock, DK |
+| Gnome | Engineering bombs +20%% | any | burst only; ~0 sustained without bombs | usage-dependent |
+| Tauren | Aftershock | any | +0.33 (0.15 - 0.50)% of group damage in stomp range | tauren: warrior, hunter, shaman, druid, DK |
+| Draenei | Light Within | any | +0.27% ceiling (8s per 5min below 35% health) | any draenei |
+| Human | Jack of All Trades combat trickle | any | small (Master of Anatomy crit rating; value pending Spell.dbc read) | economy racial first |
+| Blood Elf | Arcane Torrent | any | resource value - deferred to the mana phase | rogue full-energy noted as the big one |
+| Troll | Regeneration | any | survivability, not DPS | - |
 
-The in-combat model is net NEGATIVE for DPS - the 10s channel
-costs more than the buff returns. Gorged is a between-pulls /
-pre-pull racial, and honest pricing says so.
+## Appendix - where each crit number comes from
 
-## The remaining racials, priced
+| profile | class base | agility -> crit | + gear equip crit | = derived | + talent pkg (recalled) | = pricing crit |
+|---|---|---|---|---|---|---|
+| combat rogue L60 | -0.29 | agi 338 + rating 84 -> +18.00 pp | +0.0 | 17.70% | +5.0 | **22.7%** |
+| combat rogue L70 | -0.29 | agi 363 + rating 106 -> +13.88 pp | +0.0 | 13.58% | +5.0 | **18.6%** |
+| fury warrior L60 | 3.19 | agi 109 + rating 168 -> +17.48 pp | +0.0 | 20.67% | +8.0 | **28.7%** |
+| fury warrior L70 | 3.19 | agi 160 + rating 238 -> +16.14 pp | +0.0 | 19.33% | +8.0 | **27.3%** |
 
-| race | component | level | value | route |
-|---|---|---|---|---|
-| Dwarf | Hearty Appetite, AP food +50% | 60 | +0.762% sustained while fed | closed form (L60 food values half-assumed - read L60 Well Fed rows before quoting) |
-| Dwarf | Hearty Appetite, AP food +50% | 70 | +0.830% sustained while fed | closed form (L60 food values half-assumed - read L60 Well Fed rows before quoting) |
-| Dwarf | Hearty Appetite, SP food +50% | 70 | +0.74 (0.59 - 0.88)% while fed | closed form x SP fraction |
-| Blood Elf | Bloodthistle (Outland tier, +20 SP) | 70 | +1.28 (1.02 - 1.53)% while active | consumable, not passive |
-| Blood Elf | Bloodthistle (Classic tier, +10 SP) | 70 | +0.64 (0.51 - 0.77)% while active | consumable |
-| Troll | Strong Voodoo, affliction lock | any | +1.50 (1.20 - 1.80)% sustained | +2% x DoT share (swept) - LARGER than it reads |
-| Troll | Strong Voodoo, melee specs | any | ~0% | no DoT share to speak of |
-| Troll | Regeneration | any | not DPS - survivability/downtime | not priced here |
-| Gnome | Expansive Mind +1% haste | any | +0.90 (0.80 - 1.00)% | closed form |
-| Gnome | Engineering bombs +20% | any | situational burst; ~0 sustained outside bomb usage | swept 0-2 bombs/min elsewhere |
-| Gnome | Escape Artist -10% debuff duration | any | utility, not DPS | not priced |
-| Tauren | Aftershock (group) | any | +0.33 (0.15 - 0.50)% of GROUP damage | 10% x 5% uptime x stomp-window share (swept) |
-| Draenei | Light Within | any | +0.27% ceiling (once per 5min, below 35% health) | bounded ceiling |
-| Draenei | Heroic Presence REMOVAL | any | about -1.09% per party member under the miss cap | the largest removal in the pass |
-| Human | Jack of All Trades trickle | any | small; Master of Anatomy rank value pending a Spell.dbc read | bounded |
-| Human | Sword/Mace Spec removal | any | -0.80% on sword/mace melee | conditional (the cage) |
-| Dwarf | Mace Spec removal | any | -1.34% on mace melee | conditional |
-| Dwarf/Troll | Gun/Bow Spec removal | any | about -0.7% ranged (1pp crit) | hunters only |
-| Blood Elf | Arcane Torrent buffs | any | resource value - DEFERRED to the mana phase; rogue burst bounded elsewhere | deferred |
+Derived crit = gtChanceToMeleeCritBase + agility x gtChanceToMeleeCrit
++ crit rating / gtCombatRatings + item equip-spell crit, all from
+our own DBC/item_template data (pinned by tests). NOT included:
+buffs (Leader of the Pack, Mongoose...), weapon-skill vs defense
+depression, proc trinkets. Talent packages are the one recalled
+input - a Talent.dbc read replaces them when rotations arrive
+(Phase 3).
 
-## Reading guidance - what the numbers actually say
+## Reading guidance
 
-**1. The yardstick moved more than the racial.** 024 priced
-everything against a RAID-GEARED Blood Fury (~117 ps at 70).
-On the real PRE-RAID profiles Blood Fury is worth far more
-(~175 ps at 70, ~277 at 60), because a flat AP grant is
-relatively bigger on a smaller damage pool. Out of the Shadows
-is nearly gear- and level-invariant by construction. So at
-pre-raid gear it sits BELOW Blood Fury (about 0.5x at 60,
-0.8-0.9x at 70) - and its ratio RISES as gear grows. Against
-024's own raid-geared Blood Fury figure (117 ps) the same
-percent-seconds read ~1.2x for fury and ~1.35x for a Lethality
-rogue: the S235 concern is CONFIRMED for raid gear, and the
-design question is now precise - do you want a racial that
-strengthens relative to the yardstick as gear improves?
-
-**2. The sleeper is Strong Voodoo.** +2 percent on DoTs is a
-passive worth ~1.5 percent sustained on an affliction lock -
-about equal to Blood Fury's entire sustained value on a
-pre-raid melee, always on, no button. Nothing else in the pass
-gives a single spec that much passively.
-
-**3. Gorged is two racials.** Pre-pull it is strong (183 ps at
-60 - more than Out of the Shadows); mid-combat it is a trap
-(net negative once the 10s channel is costed). Worth saying in
-its tooltip-adjacent lore or accepting knowingly.
-
-**4. The removals are not symmetric.** Heroic Presence is the
-single largest number in either direction (about -1.1 percent
-per party member); the weapon specs are conditional losses the
-cage-removal rationale already accepts.
-
-**5. What would change these numbers:** the crit-proc share
-(Deep Wounds/Ignite) is the one swept input wide enough to
-move a decision - the design 025 escape hatch (one target-dummy
-session) applies to it and to nothing else here. This report
-prices; whether a gap is acceptable stays the group's call.
+Against the original Blood Fury on the SAME profile: Out of the
+Shadows is the only new racial that approaches the ceiling for a
+single character, and its ratio rises with gear because Blood
+Fury's flat AP dilutes as damage grows - against 024's
+raid-geared Blood Fury figure it crosses 1x. Everything else
+prices well under half a Blood Fury for any single recipient;
+Warband Fury's group sum and Gorged's corpse-and-a-break spike
+are the two that can exceed that in the right moment, which is
+the stated intent (moments over stats). Two inputs are worth
+firming before the group locks numbers: the crit-proc share and
+the DoT shares behind Strong Voodoo - both are wowsims
+reference-harvest candidates before any dummy session is spent.
