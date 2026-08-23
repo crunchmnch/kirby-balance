@@ -13,8 +13,8 @@
    "slot": "neck",
    "id": 15411,
    "name": "Mark of Fordring",
-   "confidence": "omitted-s243",
-   "note": "correct id found via web (12636 was wrong); 15411 not in the S243 dump so its stats are NOT in the profile - bounded omission, roughly -1 pp hit and a little AP; add to the next dump refresh"
+   "confidence": "corrected-s243",
+   "note": "id found via web after 12636 proved wrong; joined the dump in the S243 hunter extension"
   },
   {
    "slot": "shoulder",

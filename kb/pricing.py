@@ -31,6 +31,15 @@ def dual_wield_white_model(profile):
     consistent numerator and denominator, so RATIOS survive (025 4.1).
     """
     weapons = profile["weapons"]
+    if profile.get("class_id") == 3:
+        # hunter: the ranged weapon is the white-damage source; the
+        # profile's attack_power is RANGED AP (kb/profiles.py). Ammo and
+        # quiver haste are NOT modelled - absolute DPS understated,
+        # ratios unaffected (both sides share the omission).
+        if "ranged" not in weapons:
+            raise PricingError(
+                "hunter profile %s has no ranged weapon" % profile["spec"])
+        return weapons["ranged"]["dps"], 1.0
     if "main_hand" not in weapons:
         raise PricingError("profile %s has no main hand" % profile["spec"])
     wdps = weapons["main_hand"]["dps"]
@@ -182,3 +191,23 @@ def haste_price(pct=1.0):
 def strong_voodoo_price(dot_share):
     """Troll: +2 percent own DoTs/HoTs x DoT damage share (swept)."""
     return tuple(2.0 * s for s in dot_share)
+
+
+def on_use_haste_price(haste_pct, duration_s, cooldown_s):
+    """Sustained percent gain of an on-use haste racial (Berserking
+    shape): throughput scales ~linearly with combat speed, so the
+    sustained value is haste x duration / cooldown.
+
+    Berserking (26297) MEASURED S243 from our Spell.dbc: aura 193
+    (melee + ranged + cast speed), BasePoints 19 + DieSides 1 = +20
+    percent flat (no low-health scaling in this core's row),
+    DurationIndex 1 = 10000 ms, RecoveryTime = 180000 ms.
+    """
+    if cooldown_s <= 0 or duration_s <= 0:
+        raise PricingError("berserking shape needs positive timing")
+    return haste_pct * duration_s / cooldown_s
+
+
+def berserking_price():
+    """(sustained_pct, percent_seconds_per_own_cycle) for Berserking."""
+    return on_use_haste_price(20.0, 10.0, 180.0), 20.0 * 10.0

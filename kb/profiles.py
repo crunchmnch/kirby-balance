@@ -26,7 +26,8 @@ from kb import spelldbc as spelldbc_mod
 ITEM_MOD = {
     3: "agility", 4: "strength", 5: "intellect", 6: "spirit", 7: "stamina",
     31: "hit_rating", 32: "crit_rating", 36: "haste_rating",
-    37: "expertise_rating", 38: "attack_power", 44: "armor_pen_rating",
+    37: "expertise_rating", 38: "attack_power", 39: "ranged_attack_power",
+    44: "armor_pen_rating",
     41: "spell_healing_done", 42: "spell_damage_done", 45: "spell_power",
     43: "mp5",
 }
@@ -35,6 +36,7 @@ SPEC_CLASS = {
     "fury warrior": 1,
     "combat rogue": 4,
     "affliction warlock": 9,
+    "marksmanship hunter": 3,
 }
 
 INVTYPE_WEAPON = {13, 17, 21, 22}  # 1h, 2h, mainhand, offhand weapons
@@ -181,7 +183,7 @@ def build_profile(identity, items, levelstats, tables, race_id=2,
             for k, v in buckets.items():
                 totals[k] = totals.get(k, 0) + v
             equip_unmapped.extend(unmapped)
-        if it["slot"] in ("main_hand", "off_hand") and entry["delay_ms"]:
+        if it["slot"] in ("main_hand", "off_hand", "ranged") and entry["delay_ms"]:
             weapons[it["slot"]] = {
                 "name": entry["name"],
                 "dmg_min": entry["dmg_min"], "dmg_max": entry["dmg_max"],
@@ -200,11 +202,18 @@ def build_profile(identity, items, levelstats, tables, race_id=2,
     elif class_id == 4:
         attack_power = (2 * level + strength + agility - 20
                         + totals.get("attack_power", 0))
+    elif class_id == 3:
+        # hunters are priced on RANGED damage; attack_power holds the
+        # RANGED AP (StatSystem.cpp:368: level*2 + agi - 10; item AP
+        # applies to both, +ranged-only item AP on top)
+        attack_power = (2 * level + agility - 10
+                        + totals.get("attack_power", 0)
+                        + totals.get("ranged_attack_power", 0))
     else:
         attack_power = totals.get("attack_power", 0)
 
     crit_rating = totals.get("crit_rating", 0)
-    if class_id in (1, 4):
+    if class_id in (1, 4, 3):  # hunter: same gt table serves ranged crit
         melee_crit = tables.melee_crit_percent(
             class_id, level, agility, crit_rating)
         melee_crit += totals.get("melee_crit_pct_equip", 0)

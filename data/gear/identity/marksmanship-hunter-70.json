@@ -1,0 +1,110 @@
+{
+ "spec": "marksmanship hunter",
+ "level": 70,
+ "source": "wowhead TBC pre-raid BiS guide (fetched S243)",
+ "items": [
+  {
+   "slot": "head",
+   "id": 28275,
+   "name": "Beast Lord Helm",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "shoulder",
+   "id": 27801,
+   "name": "Beast Lord Mantle",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "back",
+   "id": 24259,
+   "name": "Vengeance Wrap",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "chest",
+   "id": 28228,
+   "name": "Beast Lord Cuirass",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "wrist",
+   "id": 29527,
+   "name": "Primalstrike Bracers",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "hands",
+   "id": 27474,
+   "name": "Beast Lord Handguards",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "waist",
+   "id": 30040,
+   "name": "Belt of Deep Shadow",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "legs",
+   "id": 27874,
+   "name": "Beast Lord Leggings",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "feet",
+   "id": 25686,
+   "name": "Fel Leather Boots",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "neck",
+   "id": 29381,
+   "name": "Choker of Vile Intent",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring1",
+   "id": 30860,
+   "name": "Kaylaan's Signet",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "ring2",
+   "id": 31077,
+   "name": "Slayer's Mark of the Redemption",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "trinket1",
+   "id": 29383,
+   "name": "Bloodlust Brooch",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket2",
+   "id": 28288,
+   "name": "Abacus of Violent Odds",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ranged",
+   "id": 31986,
+   "name": "Merciless Gladiator's Crossbow of the Phoenix",
+   "confidence": "fetched-low",
+   "note": "arena item in a pre-raid list - assert; substitute a dungeon ranged if wrong"
+  },
+  {
+   "slot": "main_hand",
+   "id": 27846,
+   "name": "Claw of the Watcher",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "off_hand",
+   "id": 28315,
+   "name": "Stormreaver Warblades",
+   "confidence": "fetched-low"
+  }
+ ]
+}

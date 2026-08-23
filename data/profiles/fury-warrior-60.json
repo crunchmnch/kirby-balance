@@ -14,24 +14,22 @@
  },
  "gear_totals": {
   "strength": 63,
-  "crit_rating": 168,
+  "crit_rating": 182,
   "hit_rating": 70,
-  "attack_power": 200,
-  "ranged_attack_power": 200,
+  "attack_power": 226,
+  "ranged_attack_power": 226,
   "agility": 32,
   "stamina": 83
  },
  "strength": 186,
  "agility": 109,
  "intellect": 27,
- "attack_power": 732,
- "crit_rating": 168,
- "melee_crit_pct": 20.671799825970083,
+ "attack_power": 758,
+ "crit_rating": 182,
+ "melee_crit_pct": 21.671799825970083,
  "spell_crit_pct": null,
  "spell_power": 0,
- "omitted_items": [
-  "Mark of Fordring (neck)"
- ],
+ "omitted_items": [],
  "equip_unmapped": [
   [
    15600,
@@ -64,6 +62,13 @@
    "dmg_max": 97.0,
    "delay_ms": 1800,
    "dps": 41.388888888888886
+  },
+  "ranged": {
+   "name": "Satyr's Bow",
+   "dmg_min": 64.0,
+   "dmg_max": 119.0,
+   "delay_ms": 2400,
+   "dps": 38.125
   }
  }
 }

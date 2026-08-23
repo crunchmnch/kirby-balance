@@ -1,0 +1,110 @@
+{
+ "spec": "marksmanship hunter",
+ "level": 60,
+ "source": "wowhead WoW Classic pre-raid BiS guide (fetched S243; page leans Season of Mastery - items are classic-era ids, noted)",
+ "items": [
+  {
+   "slot": "head",
+   "id": 18421,
+   "name": "Backwood Helm",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "shoulder",
+   "id": 12927,
+   "name": "Truestrike Shoulders",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "back",
+   "id": 13340,
+   "name": "Cape of the Black Baron",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "chest",
+   "id": 11726,
+   "name": "Savage Gladiator Chain",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "wrist",
+   "id": 18375,
+   "name": "Bracers of the Eclipse",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "hands",
+   "id": 15063,
+   "name": "Devilsaur Gauntlets",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "waist",
+   "id": 22232,
+   "name": "Marksman's Girdle",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "legs",
+   "id": 15062,
+   "name": "Devilsaur Leggings",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "feet",
+   "id": 22061,
+   "name": "Beastmaster's Boots",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "neck",
+   "id": 22340,
+   "name": "Pendant of Celerity",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring1",
+   "id": 18500,
+   "name": "Tarnished Elven Ring",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "ring2",
+   "id": 18500,
+   "name": "Tarnished Elven Ring",
+   "confidence": "fetched",
+   "note": "listed twice; unique-equipped would forbid - assert"
+  },
+  {
+   "slot": "trinket1",
+   "id": 13965,
+   "name": "Blackhand's Breadth",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "trinket2",
+   "id": 18473,
+   "name": "Royal Seal of Eldre'Thalas",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "ranged",
+   "id": 19107,
+   "name": "Bloodseeker",
+   "confidence": "fetched-low"
+  },
+  {
+   "slot": "main_hand",
+   "id": 12940,
+   "name": "Dal'Rend's Sacred Charge",
+   "confidence": "fetched"
+  },
+  {
+   "slot": "off_hand",
+   "id": 12939,
+   "name": "Dal'Rend's Tribal Guardian",
+   "confidence": "fetched"
+  }
+ ]
+}
