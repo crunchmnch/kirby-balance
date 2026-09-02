@@ -4,7 +4,7 @@ item_template dump, base stats and Spell.dbc equip auras.
 Usage (from the repo root):
 
     py -3 tools\\build_profiles.py
-    py -3 tools\\build_profiles.py --spell-dbc "D:\\Server\\dev\\Data\\dbc\\Spell.dbc"
+    py -3 tools\\build_profiles.py --spell-dbc "\\\\wsl.localhost\\Ubuntu-24.04\\opt\\kirby\\Data\\dbc\\Spell.dbc"
 
 Refuses on any identity/name mismatch, reports every equip aura it
 could not map, and writes data/profiles/*.json.
@@ -22,7 +22,9 @@ from kb import gametables, profiles
 from kb.spelldbc import SpellDbc
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEFAULT_SPELL_DBC = "D:\\Server\\dev\\Data\\dbc\\Spell.dbc"
+# The Linux dev's extracted Spell.dbc over the WSL share - see the note in
+# tools/refresh_export.py. Repointed for F295-1.
+DEFAULT_SPELL_DBC = "\\\\wsl.localhost\\Ubuntu-24.04\\opt\\kirby\\Data\\dbc\\Spell.dbc"
 
 
 def main(argv=None):

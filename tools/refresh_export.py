@@ -3,7 +3,7 @@
 Usage (from the repo root):
 
     py -3 tools\\refresh_export.py
-    py -3 tools\\refresh_export.py --dbc-dir "D:\\Server\\dev\\Data\\dbc" --out data\\export\\gametables.json
+    py -3 tools\\refresh_export.py --dbc-dir "\\\\wsl.localhost\\Ubuntu-24.04\\opt\\kirby\\Data\\dbc" --out data\\export\\gametables.json
 
 Reads the six gt* game tables the engine needs, validates their shapes
 (fail closed), and writes a stamped export per kb/export.py. Two exports
@@ -29,7 +29,11 @@ GT_MAX_LEVEL = 100
 NUM_CLASS_ROWS = 11        # class ids 1..11; 10 is the unused gap in 3.3.5
 NUM_RATING_ROWS = 32
 
-DEFAULT_DBC_DIR = "D:\\Server\\dev\\Data\\dbc"
+# The Linux dev's extracted DBC, reached from HOME over the WSL share. The
+# Windows dev tree this named until S288 was deleted with it; the repoint is
+# F295-1, and the old literal is deliberately not repeated anywhere in this
+# repo because that finding's check counts occurrences of it.
+DEFAULT_DBC_DIR = "\\\\wsl.localhost\\Ubuntu-24.04\\opt\\kirby\\Data\\dbc"
 DEFAULT_OUT = os.path.join("data", "export", "gametables.json")
 
 SOURCES = {

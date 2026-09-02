@@ -26,8 +26,10 @@ slice closes, update it in the same session.
   check that cannot fail reads identically to one that passes.
 - **The engine reads the stamped export only** (`kb/export.py`), never a
   DBC directory or a database at run time. Regeneration is
-  `tools/refresh_export.py`, run on HOME where `D:\Server\dev\Data\dbc`
-  exists. The payload hash is generation-time independent by design.
+  `tools/refresh_export.py`, run on HOME, which reads the LINUX dev's
+  extracted DBC over the WSL share at
+  `\\wsl.localhost\Ubuntu-24.04\opt\kirby\Data\dbc`. The payload hash is
+  generation-time independent by design.
 - **Scenario files are the artifact** - a run is a committed file, and
   every report echoes its inputs and prints the model limitations. Do not
   add a code path that outputs a number without them.

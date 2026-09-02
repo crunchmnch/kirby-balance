@@ -1,5 +1,6 @@
 """Pins the P2 assertion forever: the parsed game tables reproduce known
-3.3.5 reference values. Asserted S243 against D:\\Server\\dev\\Data\\dbc.
+3.3.5 reference values. Asserted S243 against the Windows dev's extracted DBC,
+a tree deleted in S288; the current source is the Linux dev over the WSL share.
 If these fail, either the export was regenerated from different data (check
 the stamp) or the reader's indexing broke.
 """

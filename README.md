@@ -39,7 +39,8 @@ produced it.
         sim.py         wires it together; Result carries its inputs
     tools/
       refresh_export.py  regenerate data/export/gametables.json from
-                         D:\Server\dev\Data\dbc (run on HOME)
+                         \\wsl.localhost\Ubuntu-24.04\opt\kirby\Data\dbc
+                         (run on HOME; the source is the LINUX dev)
     data/export/       the stamped export, committed - a scenario plus an
                        export stamp reproduces forever
     scenarios/         committed run descriptions - the artifact
